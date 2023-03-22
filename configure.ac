@@ -20,7 +20,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.71])
+AC_PREREQ([2.69])
 AC_INIT( nzbget, m4_esyscmd_s( git describe --tags --match "v*.*" --dirty ) )
 AC_USE_SYSTEM_EXTENSIONS
 AC_CONFIG_AUX_DIR(posix)

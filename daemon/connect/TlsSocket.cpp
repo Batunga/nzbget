@@ -393,8 +393,7 @@ bool TlsSocket::Start()
 		}
 
 		// For ECC certificates
-		EVP_PKEY* ecdh = EVP_EC_gen( "prime256v1" );
-            /*  EC_KEY_new_by_curve_name(NID_X9_62_prime256v1); */
+		EC_KEY* ecdh = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
 		if (!ecdh)
 		{
 			ReportError("Could not generate ecdh parameters for TLS", false);
@@ -404,11 +403,11 @@ bool TlsSocket::Start()
 		if (!SSL_CTX_set_tmp_ecdh((SSL_CTX*)m_context, ecdh))
 		{
 			ReportError("Could not set ecdh parameters for TLS", false);
-			EVP_PKEY_free(ecdh);
+			EC_KEY_free(ecdh);
 			Close();
 			return false;
 		}
-		EVP_PKEY_free(ecdh);
+		EC_KEY_free(ecdh);
 	}
 
 	if (m_isClient && !m_certStore.Empty())
